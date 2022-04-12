@@ -55,6 +55,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.FragmentActivity;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreference;
+import com.android.settings.core.FeatureFlags;
 
 import com.android.settings.R;
 import com.android.settings.SettingsActivity;
@@ -423,11 +424,12 @@ public class DashboardFeatureProviderImpl implements DashboardFeatureProvider {
     private void setPreferenceIcon(Preference preference, Tile tile, boolean forceRoundedIcon,
             String iconPackage, Icon icon) {
         Drawable iconDrawable = icon.loadDrawable(preference.getContext());
-        if (TextUtils.equals(tile.getCategory(), CategoryKey.CATEGORY_HOMEPAGE)) {
-            iconDrawable.setTint(Utils.getHomepageIconColor(preference.getContext()));
-        } else if (forceRoundedIcon && !TextUtils.equals(mContext.getPackageName(), iconPackage)) {
+        if (forceRoundedIcon && !TextUtils.equals(mContext.getPackageName(), iconPackage)) {
             iconDrawable = new AdaptiveIcon(mContext, iconDrawable,
-                    R.dimen.dashboard_tile_foreground_image_inset);
+                    FeatureFlagUtils.isEnabled(mContext, FeatureFlags.SILKY_HOME)
+                            && TextUtils.equals(tile.getCategory(), CategoryKey.CATEGORY_HOMEPAGE)
+                            ? R.dimen.homepage_foreground_image_inset
+                            : R.dimen.dashboard_tile_foreground_image_inset);
             ((AdaptiveIcon) iconDrawable).setBackgroundColor(mContext, tile);
         }
         preference.setIcon(iconDrawable);

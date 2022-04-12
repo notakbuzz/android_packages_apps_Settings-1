@@ -18,19 +18,12 @@ package com.android.settings.homepage;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.nullable;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.preference.Preference;
-import androidx.preference.PreferenceScreen;
 
 import com.android.settings.R;
 import com.android.settings.testutils.FakeFeatureFactory;
@@ -51,11 +44,6 @@ public class TopLevelSettingsTest {
         mContext = RuntimeEnvironment.application;
         mSettings = spy(new TopLevelSettings());
         when(mSettings.getContext()).thenReturn(mContext);
-        final FakeFeatureFactory featureFactory = FakeFeatureFactory.setupForTest();
-        when(featureFactory.dashboardFeatureProvider
-                .getTilesForCategory(nullable(String.class)))
-                .thenReturn(null);
-        mSettings.onAttach(mContext);
     }
 
     @Test

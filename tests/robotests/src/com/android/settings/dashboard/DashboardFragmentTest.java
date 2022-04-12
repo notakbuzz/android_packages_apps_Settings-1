@@ -46,6 +46,7 @@ import androidx.preference.SwitchPreference;
 
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.settings.core.PreferenceControllerMixin;
+import com.android.settings.homepage.HomepagePreference;
 import com.android.settings.slices.BlockingSlicePrefController;
 import com.android.settings.testutils.FakeFeatureFactory;
 import com.android.settings.widget.PrimarySwitchPreference;
@@ -53,6 +54,7 @@ import com.android.settingslib.core.AbstractPreferenceController;
 import com.android.settingslib.core.instrumentation.MetricsFeatureProvider;
 import com.android.settingslib.core.instrumentation.VisibilityLoggerMixin;
 import com.android.settingslib.drawer.ActivityTile;
+import com.android.settingslib.drawer.CategoryKey;
 import com.android.settingslib.drawer.DashboardCategory;
 import com.android.settingslib.drawer.ProviderTile;
 
@@ -427,7 +429,7 @@ public class DashboardFragmentTest {
             return mIsParalleled;
         }
 
-        void setUsingControllerEnhancement(boolean isParalleled) {
+        public void setUsingControllerEnhancement(boolean isParalleled) {
             mIsParalleled = isParalleled;
         }
     }
